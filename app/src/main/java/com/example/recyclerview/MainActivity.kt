@@ -17,13 +17,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-         recyclerView_main = findViewById<RecyclerView>(R.id.recyclerView_main)
+        recyclerView_main = findViewById<RecyclerView>(R.id.recyclerView_main)
         recyclerView_main.layoutManager = LinearLayoutManager(this)
 
         fetchJson()
 
 
     }
+
     fun fetchJson() {
         println("Attempting to Fetch JSON")
 
@@ -55,10 +56,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-
-class HomeFeed(val videos: List<Video>)
-
-class Video(val id: Int, val name: String, val link: String, val imageUrl: String,
-            val numberOfViews: Int, val channel: Channel)
-
-class Channel(val name: String, val profileImageUrl: String)

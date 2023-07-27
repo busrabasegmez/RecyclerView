@@ -1,16 +1,20 @@
 package com.example.recyclerview.adapters
 
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recyclerview.Channel
 import com.example.recyclerview.HomeFeed
 import com.example.recyclerview.R
-import com.example.recyclerview.databinding.VideoRowBinding
+import com.squareup.picasso.Picasso
 
 
-class MainAdapter(val homeFeed: HomeFeed): RecyclerView.Adapter<CustomViewHolder>() {
+class MainAdapter(val homeFeed: HomeFeed) : RecyclerView.Adapter<CustomViewHolder>() {
 
 
     val videoTitles = listOf("First title", "Second", "3rd", "MOOOOORE TITLE")
@@ -28,14 +32,21 @@ class MainAdapter(val homeFeed: HomeFeed): RecyclerView.Adapter<CustomViewHolder
     }
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
-//        val videoTitle = videoTitles.get(position)
         val video = homeFeed.videos[position]
-        holder.view.findViewById<TextView>(R.id.textView_video_title).text = video.name
-    }
+        val channel = video.channel
 
+        holder.view.findViewById<TextView>(R.id.textView_video_title).text = video.name
+        holder.view.findViewById<TextView>(R.id.textView_channel_name).text = video.channel.name + "   •   " + "20k views \n 4 days ago"
+
+        val thumbnailImageView = holder.view.findViewById<ImageView>(R.id.imageView_video_thumbnail)
+        Picasso.get().load(video.imageUrl).into(thumbnailImageView)
+
+        val channelProfileImageView = holder.view.findViewById<ImageView>(R.id.imageView_channel_profile)
+        Picasso.get().load(channel.profileImageUrl).into(channelProfileImageView)
+    }
 }
 
-class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
 }
 
